@@ -4,39 +4,43 @@ use rand::Rng;
 use colored::*;
 
 
-fn main() {
-    println!("Hey , lets guess a number");
+fn main() { 
+    println!("Guess a number");
 
-    let secret_number = rand::thread_rng().gen_range(0..100);
+    let secret_number : u32 = rand::thread_rng().gen_range(1..100);
 
     println!("The secret number is {}", secret_number);
 
+    let mut guess = String::new();
+
+    io::stdin().read_line(&mut guess).expect("enter line");
+
     loop{
 
-        println!("Input your guess");
-        let mut guess: String =  String::new();
-        io::stdin().read_line(&mut guess).expect("Error reading line");
+        let guess : u32 = match guess.trim().parse() {
+            Ok(num)=>  num,
+            Err(_) => continue,
     
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num)=> num,
-            Err(_)=> continue,
-            
+    
+    
+        };
 
 
-        } ;
-    
+
         match guess.cmp(&secret_number) {
-    
+
             Ordering::Equal => {
-                println!("{}", "Equal".green());
+                println!("{}", "Equal".color("green"));
                 break;
-            },
-            Ordering::Greater => println!("{}","Greater".red()),
-            Ordering::Less => println!("{}", "Less".red()),
-    
-    
-    
+            } ,
+            Ordering::Less => println!("Less"),
+            Ordering::Greater => println!("Greater"),
+
         }
+
+        break;
+
+
 
     }
 
@@ -45,4 +49,3 @@ fn main() {
 
 
 
-//demo
