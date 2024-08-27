@@ -11,11 +11,14 @@ fn main() {
 
     println!("The secret number is {}", secret_number);
 
-    let mut guess = String::new();
-
-    io::stdin().read_line(&mut guess).expect("enter line");
 
     loop{
+
+        println!("Enter a guess");
+
+        let mut guess = String::new();
+
+        io::stdin().read_line(&mut guess).expect("Error reading line");
 
         let guess : u32 = match guess.trim().parse() {
             Ok(num)=>  num,
@@ -30,15 +33,15 @@ fn main() {
         match guess.cmp(&secret_number) {
 
             Ordering::Equal => {
-                println!("{}", "Equal".color("green"));
+                println!("{}", "Equal".green());
                 break;
             } ,
-            Ordering::Less => println!("Less"),
-            Ordering::Greater => println!("Greater"),
+            Ordering::Less => println!("{}", "Less".yellow()),
+            Ordering::Greater => println!("{}", "Greater".red()),
 
         }
 
-        break;
+     
 
 
 
